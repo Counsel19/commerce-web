@@ -1,36 +1,35 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
 import { useContext, useEffect } from "react";
-import { cartActionType, CartContext } from "../context/CartContext";
-import { fetchAllCartItems  } from "../services/cartService"
 import { toast } from "react-toastify";
+import { fetchAllCartItems } from "../services/cartService";
+import CartList from "../components/CartList";
+import { cartActionType, CartContext } from "../context/CartContext";
+import OrderSummary from "../components/OrderSummary";
 
-const Layout = () => {
+const Cart = () => {
   const { dispatchCartState } = useContext(CartContext);
 
   useEffect(() => {
     const getData = async () => {
       try {
         const cartItems = await fetchAllCartItems();
-        dispatchCartState({
+        
+         dispatchCartState({
           type: cartActionType.SAVE_CART,
           payload: cartItems,
         });
       } catch (error) {
+        console.log(error)
         toast.error(error.response?.data?.msg || error.message);
       }
     };
 
     getData();
   }, []);
-  return (
-    <div className="space-y-8">
-      <Navbar />
-      <div className="px-12">
-        <Outlet />
-      </div>
-    </div>
-  );
+
+  return <div className="grid grid-cols-[3fr_2fr] gap-20">
+    <CartList />
+    <OrderSummary />
+  </div>;
 };
 
-export default Layout;
+export default Cart;

@@ -41,7 +41,7 @@ const AddProduct = () => {
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    console.log(token, "token")
+
     try {
       const headers = {
         "Content-Type": "application/json",

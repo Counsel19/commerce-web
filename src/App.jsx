@@ -10,26 +10,35 @@ import UserContextProvider from "./context/UserContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import UnprotectedRoutes from "./components/UnprotectedRoutes";
 import AddProduct from "./pages/AddProduct";
+import Cart from "./pages/Cart";
+import CartContextProvider from "./context/CartContext";
+import CheckoutPage from "./pages/CheckoutPage";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
     <ProductContextProvider>
       <UserContextProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route element={<ProtectedRoutes />}>
-                <Route index element={<Home />} />
-                <Route path="add-products" element={<AddProduct />} />
+        <CartContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route element={<ProtectedRoutes />}>
+                  <Route index element={<Home />} />
+                  <Route path="add-products" element={<AddProduct />} />
+                  <Route path="checkout" element={<CheckoutPage />} />
+                  <Route path="cart" element={<Cart />} />
+                  <Route path=":productId" element={<ProductDetails />} />
+                </Route>
+                <Route element={<UnprotectedRoutes />}>
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
+                </Route>
               </Route>
-              <Route element={<UnprotectedRoutes />}>
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-              </Route>
-            </Route>
-          </Routes>
-        </BrowserRouter>
-        <ToastContainer />
+            </Routes>
+          </BrowserRouter>
+          <ToastContainer />
+        </CartContextProvider>
       </UserContextProvider>
     </ProductContextProvider>
   );

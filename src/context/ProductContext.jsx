@@ -5,16 +5,20 @@ export const ProductContext = createContext();
 
 const initialState = {
   products: null,
+  searchResult: null,
   numOfProducts: 0,
 };
 
 export const actionType = {
   SAVE_PRODUCTS: "SAVE_PRODUCTS",
+  SEARCH_PRODUCTS: "SEARCH_PRODUCTS",
 };
 
 const reducer = (state, action) => {
   if (action?.type === actionType.SAVE_PRODUCTS) {
     return { ...state, ...action.payload };
+  } else if (action?.type === actionType.SEARCH_PRODUCTS) {
+    return { ...state, searchResult: action.payload };
   } else {
     return state;
   }
