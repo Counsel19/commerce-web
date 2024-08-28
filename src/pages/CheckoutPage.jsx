@@ -42,7 +42,7 @@ const CheckoutPage = () => {
       <div className="">
         <form className="space-y-6">
           <div>
-            <label>Name</label>
+            <label>Nam</label>
             <input
               className="p-3 rounded-md border w-full h-[50px]"
               type="text"
